@@ -1,0 +1,17 @@
+build-secrets:
+  services:
+    nginx:
+      - source: dhparam.pem
+        dest: dhparam.pem
+    ddclient:
+      - source: ddclient.conf
+        dest: ddclient.conf
+build-variables:
+  services:
+    nginx:
+      - REPO_ZIP_URL=
+      - REPO_NAME=
+      - CERTBOT_MAIL=
+      - CERTBOT_DOMAIN_1=
+      - CERTBOT_DOMAIN_2=
+      - CERTBOT_CERT_NAME=

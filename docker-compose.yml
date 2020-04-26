@@ -1,0 +1,44 @@
+version: '2.1'
+
+volumes:
+  nginx-data:
+  nginx-logs:
+
+services:
+  nginx:
+    build: ./nginx
+    privileged: true
+    network_mode: host
+    restart: 'unless-stopped'
+    volumes:
+      - nginx-data:/etc/letsencrypt
+      - nginx-logs:/logs
+    ports:
+      - "80:80"
+      - "443:443"
+  ddclient:
+    build: ./ddclient
+    restart: 'always'
+  netdata:
+    build: ./netdata
+    pid: "host"
+    ports:
+      - 19999:19999
+    network_mode: host
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    privileged: true
+    labels:
+      io.balena.features.sysfs: '1'
+      io.balena.features.procfs	: '1'
+      io.balena.features.balena-socket: '1'
+      io.resin.features.kernel-modules: '1'
+      io.resin.features.firmware: '1'
+    environment:
+      - DOCKER_USR=root
+      - VIRTUALIZATION=${VIRTUALIZATION}
+    depends_on: 
+      - nginx
+  

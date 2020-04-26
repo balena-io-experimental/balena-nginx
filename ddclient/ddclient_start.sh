@@ -1,0 +1,1 @@
+while true; do /usr/sbin/ddclient foreground -syslog; sleep 60; done
