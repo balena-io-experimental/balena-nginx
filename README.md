@@ -50,13 +50,13 @@ The project assumes that the website source files (html, js, css, assets) are ho
 
 **NginX** is used as the webserver of choice because it is highly performant, something essential for the size-factor of a small computer, such as the [Raspberry Pi 4](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/).
 
-Note that in order for nginx to function properly, it needs the certificates/private keys that are generated with `certbot` and a `dhparam.pem` that can be generated on the developer's machine. Thus, if running the webserver for the first time, enable the appropriate environment variable so that  `certbot` can generated the required keys.
+Note that in order for nginx to function properly, it needs the certificates/private keys that are generated with `certbot` and a `dhparam.pem` that can be generated on the developer's machine. 
 
 ## Certbot
 
-The certbot functionality is housed in the same container as the webserver becuse it needs access to the nginx directory. If we set the environment variable `CERTBOT=1`, the service will be restarted and it will start the SSL certificate functionality. After success, it will save the credentials into a named volume and will start the server as usual. 
+The certbot functionality is housed in the same container as the webserver becuse it needs access to the nginx directory.
 
-The first time that the servers starts, if it doesn't locate any SSL certifications, it will use `certbot` and will try to register the server for free SSL certifications.
+The first time that the servers starts, if it doesn't locate any SSL certifications, it will use `certbot` and will try to register the server for free SSL certifications. Afterwards the certifications will be saved into a `named volume` and as such any application upate or device reboot will not erase them. At each reboot, the server will check for those certifications and in case it can't find them, it will generate them again.
 
 ## Netdata
 
