@@ -2,9 +2,9 @@
 # It then logs me into balena (the webserver) in order to run manually another script which downloads the updated website to the server.
 
 
-export J_OUTPUT=/Users/odys/Github/odyslam.github.io/blog/
-export REPO=/Users/odys/Github/odyslam.github.io
-export DEV_UUID=b6811f2
+export J_OUTPUT= # e.g example/blog/
+export REPO= # e.g /example
+export DEV_UUID= #bf83hf
 
 # If the jekyll theme uses bundler, uncomment the line bellow:
 # bundle exec jekyll build -d $J_OUTPUT
